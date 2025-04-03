@@ -1,0 +1,81 @@
+/* General Page Styling */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f4f4; /* Light background for a clean look */
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header Section */
+h2 {
+    color: #264653;
+    margin-top: 20px;
+    font-size: 28px;
+}
+
+/* Form Styling */
+form {
+    background: #ffffff;
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+/* Labels & Inputs */
+label {
+    font-weight: bold;
+    color: #264653;
+}
+
+input, select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Submit Button */
+button {
+    width: 100%;
+    padding: 10px;
+    background: #2A9D8F; /* Primary Color */
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background: #21867a;
+}
+
+/* Prediction Result Page */
+p {
+    font-size: 20px;
+    color: #264653;
+    margin: 20px 0;
+}
+
+a {
+    display: inline-block;
+    text-decoration: none;
+    padding: 10px 15px;
+    background: #E9C46A; /* Secondary Color */
+    color: white;
+    border-radius: 5px;
+    margin-top: 10px;
+    transition: background 0.3s ease;
+}
+
+a:hover {
+    background: #d6ab5c;
+}

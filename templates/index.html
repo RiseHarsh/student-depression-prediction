@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Performance Predictor</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="card shadow-lg p-4 mt-5">
+            <h2 class="text-center text-primary">Predict Student Performance</h2>
+            <form action="/predict" method="post">
+                <div class="mb-3">
+                    <label class="form-label">Gender:</label>
+                    <select class="form-select" name="gender">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Part-Time Job:</label>
+                    <select class="form-select" name="part_time_job">
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Absence Days:</label>
+                    <input type="number" class="form-control" name="absence_days" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Extracurricular Activities:</label>
+                    <select class="form-select" name="extracurricular">
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Weekly Self Study Hours:</label>
+                    <input type="number" class="form-control" name="self_study" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Career Aspiration:</label>
+                    <select class="form-select" name="career_aspiration">
+                        <option value="Engineer">Engineer</option>
+                        <option value="Doctor">Doctor</option>
+                        <option value="Business">Business</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="form-label">Math Score:</label>
+                        <input type="number" class="form-control" name="math_score" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Physics Score:</label>
+                        <input type="number" class="form-control" name="physics_score" required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="form-label">Chemistry Score:</label>
+                        <input type="number" class="form-control" name="chemistry_score" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">English Score:</label>
+                        <input type="number" class="form-control" name="english_score" required>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Biology Score:</label>
+                    <input type="number" class="form-control" name="biology_score" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">Predict</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
