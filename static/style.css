@@ -1,81 +1,97 @@
-/* General Page Styling */
+/* General Styling */
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #f4f4f4; /* Light background for a clean look */
-    text-align: center;
+    background-color: #F9FAFB;
+    color: #1F2937;
     margin: 0;
     padding: 0;
+    transition: background 0.3s ease;
 }
 
-/* Header Section */
+/* Card Layout */
+.card {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 30px;
+    margin: 40px auto;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+    max-width: 800px;
+    animation: fadeIn 0.6s ease-in;
+}
+
+/* Header */
 h2 {
-    color: #264653;
-    margin-top: 20px;
-    font-size: 28px;
+    color: #3E8EDE;
+    margin-bottom: 20px;
+    font-weight: 600;
 }
 
-/* Form Styling */
-form {
-    background: #ffffff;
-    max-width: 400px;
-    margin: 20px auto;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: left;
-}
-
-/* Labels & Inputs */
+/* Form Elements */
 label {
-    font-weight: bold;
-    color: #264653;
+    font-weight: 500;
+    color: #1F2937;
 }
 
 input, select {
     width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 14px;
+    padding: 10px;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    transition: border 0.2s ease;
+}
+
+input:focus, select:focus {
+    border-color: #3E8EDE;
+    outline: none;
 }
 
 /* Submit Button */
 button {
-    width: 100%;
-    padding: 10px;
-    background: #2A9D8F; /* Primary Color */
-    color: white;
+    background-color: #3E8EDE;
+    color: #fff;
     font-size: 16px;
+    padding: 12px;
+    width: 100%;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
     transition: background 0.3s ease;
 }
 
 button:hover {
-    background: #21867a;
+    background-color: #265DAB;
 }
 
-/* Prediction Result Page */
+/* Result Page */
 p {
-    font-size: 20px;
-    color: #264653;
-    margin: 20px 0;
+    font-size: 22px;
+    margin-top: 20px;
 }
 
 a {
-    display: inline-block;
     text-decoration: none;
-    padding: 10px 15px;
-    background: #E9C46A; /* Secondary Color */
-    color: white;
-    border-radius: 5px;
-    margin-top: 10px;
+    background-color: #06D6A0;
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 6px;
+    margin-top: 16px;
+    display: inline-block;
     transition: background 0.3s ease;
 }
 
 a:hover {
-    background: #d6ab5c;
+    background-color: #05b58c;
+}
+
+/* Chart Containers */
+.chart-box {
+    margin-top: 30px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
 }
