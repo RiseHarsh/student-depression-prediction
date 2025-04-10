@@ -1,91 +1,387 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Performance Prediction Result</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
     <style>
-        body {
-            background-color: #f9e4ee;
-            font-family: 'Segoe UI', sans-serif;
-            padding-bottom: 50px;
+      body {
+        background: #f0f9ff;
+        font-family: "Quicksand", sans-serif;
+        padding: 30px;
+        color: #333;
+      }
+
+      h1,
+      h2 {
+        text-align: center;
+        color: #0c5d99;
+      }
+
+      .card {
+        background: #fff;
+        border-radius: 15px;
+        padding: 20px;
+        margin: 20px auto;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        max-width: 1000px;
+        animation: fadeInUp 0.7s ease;
+      }
+
+      img.graph {
+        width: 100%;
+        max-width: 600px;
+        display: block;
+        margin: 10px auto;
+        border-radius: 10px;
+      }
+
+      ul,
+      ol {
+        padding-left: 20px;
+      }
+
+      .study-plan-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+      }
+
+      .study-plan-table th,
+      .study-plan-table td {
+        padding: 12px;
+        border: 1px solid #ccc;
+      }
+
+      .study-plan-table th {
+        background-color: #d1e8ff;
+      }
+
+      @keyframes fadeInUp {
+        0% {
+          transform: translateY(20px);
+          opacity: 0;
         }
-        .container {
-            margin-top: 40px;
+        100% {
+          transform: translateY(0);
+          opacity: 1;
         }
-        .card {
-            margin-top: 20px;
-        }
-        .section-title {
-            font-weight: bold;
-            font-size: 22px;
-            margin-top: 40px;
-            color: #5a2a5f;
-        }
-        .tip-box {
-            background: #fff;
-            border-left: 5px solid #e84a8a;
-            padding: 10px 15px;
-            margin-bottom: 10px;
-        }
+      }
+
+      .btn-home {
+        display: inline-block;
+        margin-top: 20px;
+        background-color: #0c5d99;
+        color: white;
+        padding: 12px 25px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background 0.3s;
+      }
+
+      .btn-home:hover {
+        background-color: #084a7d;
+      }
+
+      .btn-primary {
+        background-color: #0c5d99;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      .btn-primary:hover {
+        background-color: #084a7d;
+      }
+
+      /* Chatbot */
+      #chatbot-toggle {
+        position: fixed;
+        bottom: 25px;
+        right: 25px;
+        background: #0c5d99;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 50px;
+        cursor: pointer;
+        z-index: 1000;
+        font-size: 18px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      #chatbot-box {
+        display: none;
+        position: fixed;
+        bottom: 80px;
+        right: 25px;
+        width: 300px;
+        background: white;
+        border: 1px solid #ccc;
+        border-radius: 12px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        font-family: "Quicksand", sans-serif;
+      }
+
+      #chatbot-header {
+        background: #0c5d99;
+        color: white;
+        padding: 10px;
+        border-radius: 12px 12px 0 0;
+        font-weight: bold;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      #chatbot-messages {
+        max-height: 200px;
+        overflow-y: auto;
+        padding: 10px;
+        font-size: 14px;
+      }
+
+      #chatbot-input {
+        width: 100%;
+        border: none;
+        border-top: 1px solid #ccc;
+        padding: 10px;
+        font-size: 14px;
+        border-radius: 0 0 12px 12px;
+        outline: none;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
+    <h1>📊 Performance Prediction Result</h1>
 
-<div class="container">
-    <h2 class="text-center mb-4">🎯 Predicted Performance Score</h2>
-
-    <div class="card shadow-sm p-4">
-        <h3 class="text-center text-success display-5">{{ prediction }}/100</h3>
-        <p class="text-center text-muted">Based on your provided inputs</p>
+    <div class="card">
+      <h2>📊 Predicted Score: {{ prediction }}</h2>
     </div>
 
-    <!-- Graphs Section -->
-    <h3 class="section-title">📊 Visual Insights</h3>
-    <div class="row text-center">
-        <div class="col-md-4">
-            <h5>Subject-wise Performance</h5>
-            <img src="{{ radar }}" alt="Radar Chart" class="img-fluid">
-        </div>
-        <div class="col-md-4">
-            <h5>Feature Importance</h5>
-            <img src="{{ feature }}" alt="Feature Importance" class="img-fluid">
-        </div>
-        <div class="col-md-4">
-            <h5>Performance Trend</h5>
-            <img src="{{ trend }}" alt="Trend Chart" class="img-fluid">
-        </div>
+    <div class="card">
+      <h2>📉 Performance Trend</h2>
+      <img class="graph" src="{{ trend }}" alt="Trend Graph" />
     </div>
 
-    <!-- Career Specific Insights -->
-    <h3 class="section-title">🎓 Career-Specific Subjects</h3>
-    <div class="card p-3">
-        <p>The most important subjects for your chosen career path are:</p>
-        <ul>
-            {% for subject in suggested_subjects %}
-                <li><strong>{{ subject }}</strong></li>
-            {% endfor %}
-        </ul>
+    <div class="card">
+      <h2>🧠 Subject-wise Performance</h2>
+      <img class="graph" src="{{ radar }}" alt="Radar Chart" />
     </div>
 
-    <!-- Study Tips -->
-    {% if study_tips %}
-    <h3 class="section-title">📝 Study Tips Based on Weaker Subjects</h3>
-    <div class="card p-3">
+    <div class="card">
+      <h2>⚙️ Feature Importance</h2>
+      <img class="graph" src="{{ feature }}" alt="Feature Importance" />
+    </div>
+
+    <div class="card">
+      <h2>🎯 Suggested Subjects for {{ suggested_subjects | join(', ') }}</h2>
+      <ul>
         {% for tip in study_tips %}
-            <div class="tip-box">{{ tip }}</div>
+        <li>{{ tip }}</li>
         {% endfor %}
+      </ul>
     </div>
-    {% else %}
-    <div class="card p-3 mt-4">
-        <p>You're doing great! No weak subjects detected. Keep up the good work! 🎉</p>
-    </div>
-    {% endif %}
 
-    <div class="text-center mt-4">
-        <a href="/" class="btn btn-primary">🔙 Predict Again</a>
+    <div class="card">
+      <h2>📅 Study Plan</h2>
+      <table class="study-plan-table">
+        <tr>
+          <th>Day</th>
+          <th>Subject</th>
+          <th>Topic</th>
+          <th>Goal</th>
+          <th>Break</th>
+        </tr>
+        {% for day in study_plan %}
+        <tr>
+          <td>{{ day.day }}</td>
+          <td>{{ day.subject }}</td>
+          <td>{{ day.topic }}</td>
+          <td>{{ day.goal }}</td>
+          <td>{{ day.break }}</td>
+        </tr>
+        {% endfor %}
+      </table>
     </div>
-</div>
 
-</body>
+    <div class="card" style="text-align: center">
+      <a href="/" class="btn-home">🔁 Predict Again</a>
+    </div>
+
+    <div style="text-align: center; margin-top: 30px">
+      <button onclick="downloadPDF()" class="btn btn-primary">
+        Download Report
+      </button>
+    </div>
+
+    <!-- 🧠 Chatbot -->
+    <div id="chatbot-toggle">💬</div>
+    <div id="chatbot-box">
+      <div id="chatbot-header">
+        Study Assistant <span id="close-chatbot">×</span>
+      </div>
+      <div id="chatbot-messages">
+        <p>
+          <strong>Bot:</strong> Hi there! Need study tips or motivation? Type
+          "tips", "memory", or "motivate".
+        </p>
+      </div>
+      <input type="text" id="chatbot-input" placeholder="Type here..." />
+    </div>
+
+    <!-- jsPDF CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+
+    <script>
+        async function downloadPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  const prediction = "{{ prediction }}";
+  const suggestedSubjects = {{ suggested_subjects | tojson | safe }};
+  const studyTips = {{ study_tips | tojson | safe }};
+  const studyPlan = {{ study_plan | tojson | safe }};
+
+  // Helper: Convert image to base64
+  async function getImageData(imgSelector) {
+    const img = document.querySelector(imgSelector);
+    const canvas = document.createElement("canvas");
+    canvas.width = img.naturalWidth;
+    canvas.height = img.naturalHeight;
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0);
+    return canvas.toDataURL("image/png");
+  }
+
+  // Page 1: Summary
+  doc.setFontSize(18);
+  doc.text("Student Performance Report", 20, 20);
+
+  doc.setFontSize(12);
+  doc.text(`Predicted Score: ${prediction}`, 20, 35);
+
+  doc.text("Suggested Subjects:", 20, 45);
+  suggestedSubjects.forEach((subj, idx) => {
+    doc.text(`- ${subj}`, 25, 52 + idx * 6);
+  });
+
+  // Study Tips
+  let y = 52 + suggestedSubjects.length * 6 + 10;
+  if (studyTips.length > 0) {
+    doc.text("Study Tips:", 20, y);
+    studyTips.forEach((tip, idx) => {
+      doc.text(`- ${tip}`, 25, y + 8 + idx * 6);
+    });
+    y = y + 8 + studyTips.length * 6 + 10;
+  }
+
+  // Study Plan Table
+  doc.text("Study Plan:", 20, y);
+  y += 6;
+
+  const tableColumn = ["Day", "Subject", "Topic", "Goal", "Break"];
+  const tableRows = studyPlan.map(row => [
+    row.day,
+    row.subject,
+    row.topic,
+    row.goal,
+    row.break,
+  ]);
+
+  doc.autoTable({
+    head: [tableColumn],
+    body: tableRows,
+    startY: y + 4,
+    styles: { fontSize: 10, cellPadding: 3 },
+    headStyles: { fillColor: [12, 93, 153] },
+    margin: { top: 10, left: 15, right: 15 },
+  });
+
+  // Graphs Page
+  const radarImg = await getImageData("img[alt='Radar Chart']");
+  const trendImg = await getImageData("img[alt='Trend Graph']");
+  const featureImg = await getImageData("img[alt='Feature Importance']");
+
+  doc.addPage();
+  doc.setFontSize(14);
+  doc.text("Radar Chart", 20, 20);
+  doc.addImage(radarImg, "PNG", 20, 30, 80, 60);
+
+  doc.text("Performance Trend", 110, 20);
+  doc.addImage(trendImg, "PNG", 110, 30, 80, 60);
+
+  doc.text("Feature Importance", 20, 100);
+  doc.addImage(featureImg, "PNG", 20, 110, 160, 70);
+
+  doc.save("performance_report.pdf");
+}
+
+    </script>
+
+    <!-- 💬 Chatbot Logic -->
+    <script>
+      const chatbotToggle = document.getElementById("chatbot-toggle");
+      const chatbotBox = document.getElementById("chatbot-box");
+      const chatbotClose = document.getElementById("close-chatbot");
+      const chatbotInput = document.getElementById("chatbot-input");
+      const chatbotMessages = document.getElementById("chatbot-messages");
+
+      const tips = [
+        "Break big topics into chunks.",
+        "Teach someone else — it reinforces your learning!",
+        "Use Pomodoro: 25 mins study, 5 mins break.",
+      ];
+
+      const memory = [
+        "Use mnemonics like 'PEMDAS' or 'ROYGBIV'.",
+        "Visualize info as diagrams or mind maps.",
+        "Revise regularly, don't cram.",
+      ];
+
+      const motivation = [
+        "Believe in yourself — you've got this! 💪",
+        "Progress > Perfection.",
+        "Small steps daily = big success.",
+      ];
+
+      chatbotToggle.onclick = () => (chatbotBox.style.display = "block");
+      chatbotClose.onclick = () => (chatbotBox.style.display = "none");
+
+      chatbotInput.addEventListener("keypress", function (e) {
+        if (e.key === "Enter") {
+          const userInput = chatbotInput.value.toLowerCase().trim();
+          appendMessage("You", userInput);
+          chatbotInput.value = "";
+
+          let reply = "Try typing 'tips', 'memory', or 'motivate'.";
+          if (userInput.includes("tip"))
+            reply = tips[Math.floor(Math.random() * tips.length)];
+          else if (userInput.includes("memory"))
+            reply = memory[Math.floor(Math.random() * memory.length)];
+          else if (userInput.includes("motivate"))
+            reply = motivation[Math.floor(Math.random() * motivation.length)];
+
+          setTimeout(() => appendMessage("Bot", reply), 600);
+        }
+      });
+
+      function appendMessage(sender, text) {
+        chatbotMessages.innerHTML += `<p><strong>${sender}:</strong> ${text}</p>`;
+        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+      }
+    </script>
+  </body>
 </html>

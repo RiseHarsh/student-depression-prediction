@@ -3,27 +3,46 @@ import pickle
 import numpy as np
 import matplotlib.pyplot as plt
 import os
-import json
 
 app = Flask(__name__)
 
-# ✅ Load model and encoders
+# Load model and encoders
 with open("model/xgboost_model.pkl", "rb") as f:
     model = pickle.load(f)
 with open("model/label_encoders.pkl", "rb") as f:
     label_encoders = pickle.load(f)
 
-# ✅ Create graph folder if not exist
+# Create graph folder
 os.makedirs("static/graphs", exist_ok=True)
 
 @app.route('/')
 def home():
     return render_template('index.html')
 
+def generate_study_plan(weak_subjects):
+    plan = []
+    daily_topics = {
+        "Math": ["Algebra", "Geometry", "Trigonometry", "Calculus", "Statistics"],
+        "Science": ["Physics", "Chemistry", "Biology", "Earth Science", "Lab Work"],
+        "English": ["Grammar", "Reading", "Writing", "Vocabulary", "Literature"],
+        "History": ["Ancient", "Medieval", "Modern", "World Wars", "Civics"]
+    }
+    for i in range(7):
+        subject = weak_subjects[i % len(weak_subjects)]
+        topic_list = daily_topics.get(subject, ["General"])
+        topic = topic_list[i % len(topic_list)]
+        plan.append({
+            "day": f"Day {i + 1}",
+            "subject": subject,
+            "topic": topic,
+            "goal": "Revise & solve practice problems",
+            "break": "Take a 15 min walk or stretch"
+        })
+    return plan
+
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
-        # ✅ Fetch form data
         form = request.form
         input_data = {
             "gender": form.get("gender", "Unknown"),
@@ -39,7 +58,6 @@ def predict():
             "english_score": float(form.get("english_score", 0)),
         }
 
-        # ✅ Encode categorical features
         def encode(val, col):
             return label_encoders[col].transform([val])[0] if val in label_encoders[col].classes_ else 0
 
@@ -50,33 +68,30 @@ def predict():
             "career_aspiration": encode(input_data["career_aspiration"], "career_aspiration"),
         }
 
-        X_input = np.array([[
-            encoded["gender"],
-            encoded["part_time_job"],
-            input_data["absence_days"],
-            encoded["extracurricular_activities"],
-            input_data["weekly_self_study_hours"],
-            encoded["career_aspiration"],
-            input_data["math_score"],
-            input_data["physics_score"],
-            input_data["chemistry_score"],
-            input_data["biology_score"],
-            input_data["english_score"]
-        ]])
+        X_input = np.array([[encoded["gender"],
+                             encoded["part_time_job"],
+                             input_data["absence_days"],
+                             encoded["extracurricular_activities"],
+                             input_data["weekly_self_study_hours"],
+                             encoded["career_aspiration"],
+                             input_data["math_score"],
+                             input_data["physics_score"],
+                             input_data["chemistry_score"],
+                             input_data["biology_score"],
+                             input_data["english_score"]]])
 
         prediction = model.predict(X_input)[0]
 
-        # ✅ Graph 1: Radar Chart
         subjects = ['Math', 'Physics', 'Chemistry', 'Biology', 'English']
         scores = [input_data[f"{s.lower()}_score"] for s in subjects]
 
-        fig, ax = plt.subplots(figsize=(5,5), subplot_kw={'polar': True})
+        # Radar Chart
+        fig, ax = plt.subplots(figsize=(5, 5), subplot_kw={'polar': True})
         angles = np.linspace(0, 2 * np.pi, len(subjects), endpoint=False).tolist()
-        scores += scores[:1]
+        scores_radar = scores + scores[:1]
         angles += angles[:1]
-
-        ax.plot(angles, scores, 'o-', linewidth=2)
-        ax.fill(angles, scores, alpha=0.25)
+        ax.plot(angles, scores_radar, 'o-', linewidth=2)
+        ax.fill(angles, scores_radar, alpha=0.25)
         ax.set_xticks(angles[:-1])
         ax.set_xticklabels(subjects)
         ax.set_ylim(0, 100)
@@ -85,9 +100,10 @@ def predict():
         plt.savefig(radar_path)
         plt.close()
 
-        # ✅ Graph 2: Feature Importance
+        # Feature Importance
         importance = model.feature_importances_
-        features = ['Gender', 'Job', 'Absence', 'Extra', 'StudyHrs', 'Career', 'Math', 'Physics', 'Chemistry', 'Biology', 'English']
+        features = ['Gender', 'Job', 'Absence', 'Extra', 'StudyHrs', 'Career',
+                    'Math', 'Physics', 'Chemistry', 'Biology', 'English']
         fig, ax = plt.subplots()
         ax.barh(features, importance)
         plt.title("Feature Importance")
@@ -96,18 +112,17 @@ def predict():
         plt.savefig(feature_path)
         plt.close()
 
-        # ✅ Graph 3: Performance Trend (simulate based on scores)
-        trends = [input_data[f"{s.lower()}_score"] for s in ['math', 'physics', 'chemistry', 'biology', 'english']]
+        # Performance Trend
         fig, ax = plt.subplots()
-        ax.plot(subjects, trends, marker='o')
+        ax.plot(subjects, scores, marker='o')
         plt.title("Performance Trend")
         plt.ylim(0, 100)
         trend_path = "static/graphs/trend.png"
         plt.savefig(trend_path)
         plt.close()
 
-        # ✅ Career-Specific Insights
-        career = input_data["career_aspiration"]
+        # Career-specific subject suggestions
+        career = form.get("career_aspiration", "Other")
         important_subjects = {
             "Engineer": ["Math", "Physics"],
             "Doctor": ["Biology", "Chemistry"],
@@ -116,8 +131,8 @@ def predict():
         }
         suggested = important_subjects.get(career, ["English"])
 
-        # ✅ Study Tips
-        weak_subjects = [sub for sub, score in zip(subjects, scores[:-1]) if score < 50]
+        # Study tips for weak subjects
+        weak_subjects = [sub for sub, score in zip(subjects, scores) if score < 50]
         tips = {
             "Math": "Practice daily problems and revise formulas.",
             "Physics": "Focus on concepts and solve previous year questions.",
@@ -127,13 +142,17 @@ def predict():
         }
         suggestions = [tips[sub] for sub in weak_subjects]
 
+        plan_subjects = weak_subjects if weak_subjects else subjects[:2]
+        study_plan = generate_study_plan(plan_subjects)
+
         return render_template("result.html",
                                prediction=round(prediction, 2),
                                radar=radar_path,
                                feature=feature_path,
                                trend=trend_path,
                                suggested_subjects=suggested,
-                               study_tips=suggestions)
+                               study_tips=suggestions,
+                               study_plan=study_plan)
 
     except Exception as e:
         return f"❌ Error: {str(e)}"
