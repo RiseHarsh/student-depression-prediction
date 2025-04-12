@@ -1,56 +1,64 @@
 import pandas as pd
 import numpy as np
-import pickle
 from sklearn.model_selection import train_test_split
-from xgboost import XGBRegressor
-from sklearn.preprocessing import LabelEncoder
-from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+from sklearn.preprocessing import LabelEncoder, StandardScaler
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+import joblib
+import seaborn as sns
+import matplotlib.pyplot as plt
 
-# ✅ Load dataset
-df = pd.read_csv("student-scores.csv")
-print("Columns in dataset:", df.columns)  # Debugging: Check column names
+# 1. Load the dataset
+df = pd.read_csv('cleaned_dataset.csv')
 
-# ✅ Calculate final score if missing
-if 'final_score' not in df.columns:
-    df['final_score'] = df[['math_score', 'physics_score', 'chemistry_score', 'biology_score', 'english_score']].mean(axis=1)
+# 2. Handle missing/invalid data
+df['Financial Stress'] = pd.to_numeric(df['Financial Stress'], errors='coerce')
+df.dropna(inplace=True)
 
-# ✅ Keep only required columns (Removed history_score)
-selected_features = ['gender', 'part_time_job', 'absence_days', 'extracurricular_activities', 
-                     'weekly_self_study_hours', 'career_aspiration', 
-                     'math_score', 'physics_score', 'chemistry_score', 'biology_score', 'english_score']
-
-df = df[selected_features + ['final_score']]  # ✅ Now final_score is present!
-
-# ✅ Encode categorical variables
+# 3. Encode categorical features
 label_encoders = {}
-for col in ['gender', 'part_time_job', 'extracurricular_activities', 'career_aspiration']:
+for col in df.select_dtypes(include='object').columns:
     le = LabelEncoder()
     df[col] = le.fit_transform(df[col])
     label_encoders[col] = le
 
-# ✅ Split dataset
-X = df[selected_features]
-y = df['final_score']
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+# 4. Split features and target
+X = df.drop('Depression', axis=1)
+y = df['Depression']
 
-# ✅ Train XGBoost Model
-model = XGBRegressor(n_estimators=100, learning_rate=0.1, max_depth=5, random_state=42)
+# 5. Feature Scaling
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+# 6. Train-Test Split
+X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
+
+# 7. Train Logistic Regression Model
+model = LogisticRegression()
 model.fit(X_train, y_train)
 
-# ✅ Evaluate Model
+# 8. Evaluate Model
 y_pred = model.predict(X_test)
-mae = mean_absolute_error(y_test, y_pred)
-mse = mean_squared_error(y_test, y_pred)
-rmse = np.sqrt(mse)
-r2 = r2_score(y_test, y_pred)
+acc = accuracy_score(y_test, y_pred)
 
-print(f"MAE: {mae}")
-print(f"MSE: {mse}")
-print(f"RMSE: {rmse}")
-print(f"R² Score: {r2}")
+print(f"✅ Logistic Regression Accuracy: {acc:.4f}\n")
+print("📊 Classification Report:")
+print(classification_report(y_test, y_pred))
 
-# ✅ Save Model & Label Encoders
-pickle.dump(model, open("model/xgboost_model.pkl", "wb"))
-pickle.dump(label_encoders, open("model/label_encoders.pkl", "wb"))
+# 9. Plot Confusion Matrix
+cm = confusion_matrix(y_test, y_pred)
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
+plt.title("Confusion Matrix")
+plt.xlabel("Predicted")
+plt.ylabel("Actual")
+plt.show()
 
-print("🎯 XGBoost Model Saved Successfully!")
+# 10. Save model, scaler, encoders
+joblib.dump(model, 'model/logistic_model.pkl')
+joblib.dump(scaler, 'model/scaler.pkl')
+joblib.dump(label_encoders, 'model/encoders.pkl')
+joblib.dump(X.columns.tolist(), 'model/feature_names.pkl')  # 🔥 Add this line
+
+print("\n✅ Logistic Regression model, scaler, encoders, and feature names saved successfully.")
+
+# print("\n✅ Logistic Regression model, scaler, and encoders saved successfully.")

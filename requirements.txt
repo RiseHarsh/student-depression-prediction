@@ -1,8 +1,7 @@
 Flask
 pandas
-scikit-learn
 numpy
-pickle-mixin
-gunicorn
-xgboost
+scikit-learn
+joblib
 matplotlib
+seaborn

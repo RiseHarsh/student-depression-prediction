@@ -1,97 +1,90 @@
-/* General Styling */
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #F9FAFB;
-    color: #1F2937;
-    margin: 0;
-    padding: 0;
-    transition: background 0.3s ease;
-}
-
-/* Card Layout */
-.card {
-    background-color: #fff;
-    border-radius: 12px;
-    padding: 30px;
-    margin: 40px auto;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
-    max-width: 800px;
-    animation: fadeIn 0.6s ease-in;
-}
-
-/* Header */
-h2 {
-    color: #3E8EDE;
-    margin-bottom: 20px;
+    background: #f4f7fc;
+  }
+  
+  .navbar {
+    background-color: #003049;
+  }
+  
+  .navbar-brand, .nav-link {
+    color: #ffffff !important;
     font-weight: 600;
-}
-
-/* Form Elements */
-label {
+  }
+  
+  .hero-section {
+    background: linear-gradient(135deg, #e0f7fa, #fce4ec);
+    padding: 60px 20px;
+    text-align: center;
+  }
+  
+  .hero-section h1 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #333;
+  }
+  
+  .hero-section p {
+    font-size: 1.1rem;
+    color: #555;
+    max-width: 700px;
+    margin: 15px auto;
+  }
+  
+  .form-section {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 40px;
+    margin-top: 40px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.05);
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-label {
     font-weight: 500;
-    color: #1F2937;
-}
-
-input, select {
-    width: 100%;
-    padding: 10px;
-    margin-top: 6px;
-    margin-bottom: 16px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    transition: border 0.2s ease;
-}
-
-input:focus, select:focus {
-    border-color: #3E8EDE;
-    outline: none;
-}
-
-/* Submit Button */
-button {
-    background-color: #3E8EDE;
-    color: #fff;
-    font-size: 16px;
-    padding: 12px;
-    width: 100%;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-button:hover {
-    background-color: #265DAB;
-}
-
-/* Result Page */
-p {
-    font-size: 22px;
-    margin-top: 20px;
-}
-
-a {
-    text-decoration: none;
-    background-color: #06D6A0;
-    color: #fff;
-    padding: 10px 16px;
+  }
+  
+  .form-control:focus {
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .25);
+  }
+  
+  .submit-btn {
+    background-color: #0077b6;
+    color: white;
+    font-weight: 600;
+    padding: 10px 20px;
     border-radius: 6px;
-    margin-top: 16px;
-    display: inline-block;
-    transition: background 0.3s ease;
-}
+    border: none;
+  }
+  
+  .submit-btn:hover {
+    background-color: #005f87;
+    transition: background-color 0.3s ease;
+  }
+  
+  .footer {
+    background-color: #003049;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+  }
+  
+  .form-control:focus {
+    border-color: #0077b6;
+    box-shadow: 0 0 8px rgba(0, 119, 182, 0.3);
+  }
+  @media (max-width: 576px) {
+    .form-group {
+      margin-bottom: 25px;
+    }
+  }
 
-a:hover {
-    background-color: #05b58c;
-}
-
-/* Chart Containers */
-.chart-box {
-    margin-top: 30px;
-}
-
-/* Animations */
-@keyframes fadeIn {
-    0% { opacity: 0; transform: translateY(30px); }
-    100% { opacity: 1; transform: translateY(0); }
-}
+  @media (max-width: 576px) {
+    .submit-btn {
+      width: 100%;
+    }
+  }
+  
