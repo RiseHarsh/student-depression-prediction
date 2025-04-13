@@ -87,29 +87,43 @@
           </div>
 
           <div class="form-group">
-            <label for="city">City</label>
-            <input
-              type="text"
-              class="form-control"
-              id="city"
-              name="city"
-              required
-              pattern="[A-Za-z\s]+"
-              title="Only letters and spaces allowed"
-              placeholder="Enter your city"
-            />
+            <label for="city">City:</label>
+            <select class="form-control" name="city" id="city" required>
+              <option value="" selected>-- Select City --</option>
+              <option value="Visakhapatnam">Visakhapatnam</option>
+              <option value="Bangalore">Bangalore</option>
+              <option value="Srinagar">Srinagar</option>
+              <option value="Varanasi">Varanasi</option>
+              <option value="Jaipur">Jaipur</option>
+              <option value="Pune">Pune</option>
+              <option value="Thane">Thane</option>
+              <option value="Chennai">Chennai</option>
+              <option value="Nagpur">Nagpur</option>
+              <option value="Nashik">Nashik</option>
+              <option value="Vadodara">Vadodara</option>
+              <option value="Kalyan">Kalyan</option>
+              <option value="Rajkot">Rajkot</option>
+              <option value="Ahmedabad">Ahmedabad</option>
+              <option value="Kolkata">Kolkata</option>
+              <option value="Mumbai">Mumbai</option>
+              <option value="Lucknow">Lucknow</option>
+              <option value="Indore">Indore</option>
+              <option value="Surat">Surat</option>
+              <option value="Ludhiana">Ludhiana</option>
+              <option value="Bhopal">Bhopal</option>
+              <option value="Meerut">Meerut</option>
+              <option value="Agra">Agra</option>
+              <option value="Ghaziabad">Ghaziabad</option>
+              <option value="Hyderabad">Hyderabad</option>
+              <option value="Vasai-Virar">Vasai-Virar</option>
+              <option value="Kanpur">Kanpur</option>
+              <option value="Patna">Patna</option>
+              <option value="Faridabad">Faridabad</option>
+              <option value="Delhi">Delhi</option>
+            </select>
           </div>
 
           <div class="form-group">
-            <!-- <label for="profession">Profession</label>
-            <select
-              class="form-control"
-              id="profession"
-              name="profession"
-              disabled
-            >
-              <option selected>Student</option>
-            </select> -->
             <label for="profession">Profession:</label>
             <select
               class="form-control"
@@ -134,6 +148,7 @@
               required
               placeholder="Rate your academic pressure"
             />
+            <small class="form-text text-muted">1 - Low, 5 - High</small>
           </div>
 
           <div class="form-group">
@@ -163,6 +178,7 @@
               required
               placeholder="Rate your study satisfaction"
             />
+            <small class="form-text text-muted">1 - Low, 5 - High</small>
           </div>
 
           <div class="form-group">
@@ -187,7 +203,7 @@
               id="dietary-habits"
               required
             >
-              <option value="" selected>-- Select --</option>
+              <option value="" disabled selected>-- Select --</option>
               <option value="Healthy">Healthy</option>
               <option value="Moderate">Moderate</option>
               <option value="Unhealthy">Unhealthy</option>
@@ -240,7 +256,7 @@
               name="suicidal_thoughts"
               required
             >
-              <option value="" disabled selected>Select</option>
+              <option value="" disabled selected>-- Select --</option>
               <option value="Yes">Yes</option>
               <option value="No">No</option>
             </select>
