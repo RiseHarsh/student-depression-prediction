@@ -1,90 +1,184 @@
+/* ======= GLOBAL ======= */
 body {
-    font-family: 'Poppins', sans-serif;
-    background: #f4f7fc;
+  font-family: 'Poppins', sans-serif;
+  background: #f4f7fc;
+  margin: 0;
+  padding: 0;
+}
+
+/* ======= NAVBAR ======= */
+.navbar {
+  background-color: #003049;
+}
+
+.navbar-brand, .nav-link {
+  color: #ffffff !important;
+  font-weight: 600;
+}
+
+/* ======= HERO SECTION ======= */
+.hero-section {
+  background: linear-gradient(135deg, #e0f7fa, #fce4ec);
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.hero-section h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.hero-section p {
+  font-size: 1.1rem;
+  color: #555;
+  max-width: 700px;
+  margin: 15px auto;
+}
+
+/* ======= FORM SECTION ======= */
+.form-section {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 40px;
+  margin-top: 40px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  font-weight: 500;
+}
+
+.form-control:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  border-color: #0077b6;
+}
+
+.submit-btn {
+  background-color: #0077b6;
+  color: white;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: none;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.submit-btn:hover {
+  background-color: #005f87;
+  transform: scale(1.02);
+}
+
+/* ======= FOOTER ======= */
+.footer {
+  background-color: #003049;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+}
+
+/* ======= RESULT PAGE STYLES ======= */
+.result-box {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  animation: fadeInUp 1s ease-in-out;
+  margin-top: 80px;
+}
+
+.result-box h2 {
+  margin-bottom: 20px;
+  color: #003049;
+}
+
+.result-box p.lead {
+  font-size: 1.2rem;
+  color: #333;
+  font-weight: 500;
+}
+
+.result-box .btn-back {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #0077b6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.result-box .btn-back:hover {
+  background-color: #005f87;
+}
+
+/* ======= TRUST ORGANIZATION BOXES ======= */
+.trust-info {
+  margin-top: 40px;
+}
+
+.trust-card {
+  background-color: #e3f2fd;
+  border-left: 5px solid #0077b6;
+  padding: 20px;
+  margin: 10px auto;
+  border-radius: 8px;
+  max-width: 700px;
+  text-align: left;
+  animation: fadeIn 1.2s ease;
+}
+
+.trust-card h5 {
+  margin-bottom: 5px;
+  color: #003049;
+}
+
+.trust-card p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+/* ======= ANIMATIONS ======= */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
   }
-  
-  .navbar {
-    background-color: #003049;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  .navbar-brand, .nav-link {
-    color: #ffffff !important;
-    font-weight: 600;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
   }
-  
-  .hero-section {
-    background: linear-gradient(135deg, #e0f7fa, #fce4ec);
-    padding: 60px 20px;
-    text-align: center;
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
-  
-  .hero-section h1 {
-    font-size: 2.8rem;
-    font-weight: 700;
-    color: #333;
-  }
-  
-  .hero-section p {
-    font-size: 1.1rem;
-    color: #555;
-    max-width: 700px;
-    margin: 15px auto;
-  }
-  
-  .form-section {
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 40px;
-    margin-top: 40px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.05);
-  }
-  
+}
+
+/* ======= RESPONSIVE ======= */
+@media (max-width: 576px) {
   .form-group {
-    margin-bottom: 20px;
-  }
-  
-  .form-label {
-    font-weight: 500;
-  }
-  
-  .form-control:focus {
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .25);
-  }
-  
-  .submit-btn {
-    background-color: #0077b6;
-    color: white;
-    font-weight: 600;
-    padding: 10px 20px;
-    border-radius: 6px;
-    border: none;
-  }
-  
-  .submit-btn:hover {
-    background-color: #005f87;
-    transition: background-color 0.3s ease;
-  }
-  
-  .footer {
-    background-color: #003049;
-    color: #fff;
-    padding: 20px 0;
-    text-align: center;
-  }
-  
-  .form-control:focus {
-    border-color: #0077b6;
-    box-shadow: 0 0 8px rgba(0, 119, 182, 0.3);
-  }
-  @media (max-width: 576px) {
-    .form-group {
-      margin-bottom: 25px;
-    }
+    margin-bottom: 25px;
   }
 
-  @media (max-width: 576px) {
-    .submit-btn {
-      width: 100%;
-    }
+  .submit-btn {
+    width: 100%;
   }
-  
+
+  .result-box {
+    margin-top: 40px;
+  }
+}
