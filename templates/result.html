@@ -14,16 +14,32 @@
     <div class="result-box" id="result-box">
       <h2>Prediction Result</h2>
       <p class="lead" id="prediction-text">{{ prediction }}</p>
+      
+      <!-- Display User Data for Transparency -->
+      <div class="user-info mt-4">
+        <h4>👤 User Information</h4>
+        <ul>
+          <li><strong>Gender:</strong> {{ user_data['Gender'] }}</li>
+          <li><strong>Age:</strong> {{ user_data['Age'] }}</li>
+          <li><strong>City:</strong> {{ user_data['City'] }}</li>
+          <li><strong>CGPA:</strong> {{ user_data['CGPA'] }}</li>
+          <li><strong>Study Satisfaction:</strong> {{ user_data['Study Satisfaction'] }}</li>
+          <li><strong>Study Hours per Day:</strong> {{ user_data['Study Hours per Day'] }}</li>
+          <li><strong>Financial Stress:</strong> {{ user_data['Financial Stress'] }}</li>
+          <li><strong>Sleep Duration:</strong> {{ user_data['Sleep Duration'] }} hours</li>
+        </ul>
+      </div>
+
       <a href="/" class="btn btn-back">Back to Home</a>
 
-      {% if 'not likely' not in prediction %}
-      <div class="trust-info">
-        <h4 class="mt-4">💡 You're not alone — Reach out for help</h4>
+      {% if risk %}
+      <div class="trust-info mt-4">
+        <h4>💡 You're not alone — Reach out for help</h4>
 
         <div class="trust-card">
           <h5>AASRA</h5>
           <p>24/7 Helpline: +91-9820466726</p>
-          <p>Website: <a href="https://aasra.info" target="_blank">aasra.info</a></p>
+          <p>Website: <a href="http://www.aasra.info/" target="_blank">aasra.info</a></p>
         </div>
 
         <div class="trust-card">
@@ -38,6 +54,11 @@
         </div>
 
         <p class="mt-3 text-muted"><em>Don't hesitate to talk. Help is just a call away 💛</em></p>
+      </div>
+      {% else %}
+      <div class="encouragement-box mt-4">
+        <h4>🎉 Great! You're not at risk of depression.</h4>
+        <p>Keep taking care of yourself! Maintaining good sleep, study habits, and staying connected to loved ones are all great strategies.</p>
       </div>
       {% endif %}
     </div>

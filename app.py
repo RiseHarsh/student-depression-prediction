@@ -8,7 +8,7 @@ app = Flask(__name__)
 model = joblib.load('model/logistic_model.pkl')
 scaler = joblib.load('model/scaler.pkl')
 label_encoders = joblib.load('model/encoders.pkl')
-feature_names = joblib.load('model/feature_names.pkl')  # ✅ NEW
+feature_names = joblib.load('model/feature_names.pkl')
 
 @app.route('/')
 def index():
@@ -43,7 +43,7 @@ def predict():
                 if col in label_encoders:
                     input_df[col] = label_encoders[col].transform(input_df[col])
 
-            # Align input with training feature order, add missing columns with 0
+            # Align input with training feature order
             input_df = input_df.reindex(columns=feature_names, fill_value=0)
 
             # Scale
@@ -54,7 +54,12 @@ def predict():
 
             result_text = "🟢 You are not likely experiencing depression." if prediction == 0 else "🔴 You may be at risk of depression."
 
-            return render_template('result.html', prediction=result_text)
+            return render_template(
+                'result.html',
+                prediction=result_text,
+                user_data=user_input,  # 🟡 Send raw input data
+                risk=(prediction == 1)
+            )
 
     except Exception as e:
         return f"⚠️ An error occurred: {str(e)}"

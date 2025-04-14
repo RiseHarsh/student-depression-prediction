@@ -1,184 +1,125 @@
-/* ======= GLOBAL ======= */
+/* General Styles */
 body {
   font-family: 'Poppins', sans-serif;
-  background: #f4f7fc;
-  margin: 0;
-  padding: 0;
-}
-
-/* ======= NAVBAR ======= */
-.navbar {
-  background-color: #003049;
-}
-
-.navbar-brand, .nav-link {
-  color: #ffffff !important;
-  font-weight: 600;
-}
-
-/* ======= HERO SECTION ======= */
-.hero-section {
-  background: linear-gradient(135deg, #e0f7fa, #fce4ec);
-  padding: 60px 20px;
-  text-align: center;
-}
-
-.hero-section h1 {
-  font-size: 2.8rem;
-  font-weight: 700;
+  background: linear-gradient(135deg, #e3d7ff, #f0b4ff);
   color: #333;
 }
 
-.hero-section p {
-  font-size: 1.1rem;
-  color: #555;
-  max-width: 700px;
-  margin: 15px auto;
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* ======= FORM SECTION ======= */
-.form-section {
-  background: #ffffff;
-  border-radius: 12px;
-  padding: 40px;
-  margin-top: 40px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
-}
-
-.form-group {
-  margin-bottom: 20px;
-}
-
-.form-label {
-  font-weight: 500;
-}
-
-.form-control:focus {
-  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-  border-color: #0077b6;
-}
-
-.submit-btn {
-  background-color: #0077b6;
-  color: white;
+h2, h4 {
   font-weight: 600;
-  padding: 10px 20px;
-  border-radius: 6px;
-  border: none;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.submit-btn:hover {
-  background-color: #005f87;
-  transform: scale(1.02);
-}
-
-/* ======= FOOTER ======= */
-.footer {
-  background-color: #003049;
-  color: #fff;
-  padding: 20px 0;
-  text-align: center;
-}
-
-/* ======= RESULT PAGE STYLES ======= */
-.result-box {
-  background: white;
-  padding: 40px;
-  border-radius: 12px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  animation: fadeInUp 1s ease-in-out;
-  margin-top: 80px;
-}
-
-.result-box h2 {
-  margin-bottom: 20px;
-  color: #003049;
-}
-
-.result-box p.lead {
-  font-size: 1.2rem;
   color: #333;
-  font-weight: 500;
 }
 
-.result-box .btn-back {
-  margin-top: 20px;
+h5 {
+  font-weight: 600;
+}
+
+.lead {
+  font-size: 1.25rem;
+  color: #444;
+}
+
+.btn-back {
+  background-color: #f9e4ee;
+  color: #333;
+  border: 2px solid #f9e4ee;
   padding: 10px 20px;
-  background-color: #0077b6;
-  color: white;
-  border: none;
+  font-weight: 600;
   border-radius: 5px;
   text-decoration: none;
-  font-weight: 600;
-  transition: background-color 0.3s ease;
+  display: inline-block;
+  margin-top: 20px;
 }
 
-.result-box .btn-back:hover {
-  background-color: #005f87;
+.btn-back:hover {
+  background-color: #f4d1e1;
+  border-color: #f4d1e1;
 }
 
-/* ======= TRUST ORGANIZATION BOXES ======= */
+.result-box {
+  text-align: center;
+}
+
+.result-box p {
+  font-size: 1.2rem;
+}
+
+.user-info {
+  text-align: left;
+  margin-top: 30px;
+}
+
+.user-info ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.user-info ul li {
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
 .trust-info {
   margin-top: 40px;
 }
 
 .trust-card {
-  background-color: #e3f2fd;
-  border-left: 5px solid #0077b6;
-  padding: 20px;
-  margin: 10px auto;
+  background-color: #fff;
+  border: 1px solid #f0c1d1;
   border-radius: 8px;
-  max-width: 700px;
-  text-align: left;
-  animation: fadeIn 1.2s ease;
+  padding: 15px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .trust-card h5 {
-  margin-bottom: 5px;
-  color: #003049;
+  color: #d39aff;
 }
 
 .trust-card p {
-  margin: 0;
-  font-size: 0.95rem;
+  font-size: 1rem;
 }
 
-/* ======= ANIMATIONS ======= */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(25px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.encouragement-box {
+  background-color: #e0f7e1;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #b1dcb9;
+  margin-top: 30px;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.96);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+.encouragement-box h4 {
+  color: #388e3c;
 }
 
-/* ======= RESPONSIVE ======= */
-@media (max-width: 576px) {
-  .form-group {
-    margin-bottom: 25px;
-  }
+.encouragement-box p {
+  font-size: 1.1rem;
+}
 
-  .submit-btn {
-    width: 100%;
-  }
+.confetti {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+}
 
-  .result-box {
-    margin-top: 40px;
-  }
+.confetti canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
